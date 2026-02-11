@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .clock-container {
+            text-align: center;
+            background: white;
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        #time {
+            font-size: 72px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+        
+        #date {
+            font-size: 32px;
+            color: #666;
+            margin: 10px 0;
+        }
+        
+        #day {
+            font-size: 28px;
+            color: #667eea;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <h1 style="color: #667eea; margin-top: 0;">Digital Clock</h1>
+        <div id="time"></div>
+        <div id="date"></div>
+        <div id="day"></div>
+    </div>
+
+    <script>
+        // Start the clock when page loads
+        window.onload = function() {
+            startTime();
+        };
+
+        function startTime() {
+            const today = new Date();
+            
+            // Get time components
+            let h = today.getHours();
+            let m = today.getMinutes();
+            let s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            
+            // Get date components
+            let dayNum = today.getDay();
+            let date = today.getDate();
+            let month = today.getMonth() + 1; // months are 0-indexed
+            let year = today.getFullYear();
+            
+            // Get day name using switch statement
+            let dayName;
+            switch(dayNum) {
+                case 0:
+                    dayName = "Sunday";
+                    break;
+                case 1:
+                    dayName = "Monday";
+                    break;
+                case 2:
+                    dayName = "Tuesday";
+                    break;
+                case 3:
+                    dayName = "Wednesday";
+                    break;
+                case 4:
+                    dayName = "Thursday";
+                    break;
+                case 5:
+                    dayName = "Friday";
+                    break;
+                case 6:
+                    dayName = "Saturday";
+                    break;
+                default:
+                    dayName = "Unknown";
+            }
+            
+            // Display the results
+            document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+            document.getElementById('date').innerHTML = date + "/" + month + "/" + year;
+            document.getElementById('day').innerHTML = dayName;
+            
+            setTimeout(startTime, 1000);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+    </script>
+</body>
+</html>
